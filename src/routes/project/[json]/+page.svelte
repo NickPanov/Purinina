@@ -12,27 +12,10 @@
 
     async function compileSrc(file: ProjectSourceFile) {
         let escapedDirPath = currentDir.replaceAll(" ","\\ ");
-         console.log(escapedDirPath);
-        let output = await Command.create("cmd", [
+        await Command.create("cmd", [
             "/C",
-            `sass ${escapedDirPath}\\${file.name} ${escapedDirPath}\\res.css`,
+            `sass ${escapedDirPath}\\${file.name} ${escapedDirPath}\\${file.name}.css`,
         ]).execute();
-
-        // output.on("close", (data) => {
-        //     console.log(
-        //         `command finished with code ${data.code} and signal ${data.signal}`,
-        //     );
-        // });
-
-        console.log(output);
-
-        return;
-        console.log(
-            `sass \"${currentDir}\\${file.name}\"    \"${currentDir}\\result.css\"`,
-        );
-        run(
-            `sass \"${currentDir}\\${file.name}\" \"${currentDir}\\result.css\"`,
-        );
     }
 </script>
 
