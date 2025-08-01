@@ -6,13 +6,12 @@ interface Project {
 }
 
 export async function load({ params }) {
-
-
+    
 
     let proj: Project = JSON.parse(await readTextFile(`projects\\${params.json}`, {
         baseDir: BaseDirectory.AppLocalData,
     }));
 
-    proj.files = await readDir(proj.projectDir); 
+    proj.files = await readDir(proj.projectDir);
     return proj
 }

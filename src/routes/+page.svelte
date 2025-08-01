@@ -1,21 +1,15 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { invoke } from "@tauri-apps/api/core";
   import {
-    readFile,
-    readTextFile,
     exists,
     create,
     BaseDirectory,
     readDir,
     mkdir,
-    writeFile,
     writeTextFile,
-    type CreateOptions,
     type DirEntry,
   } from "@tauri-apps/plugin-fs";
   import { open } from "@tauri-apps/plugin-dialog";
-  import Item from "./list/item.svelte";
+  import Item from "../components/item.svelte";
 
   async function checkDir() {
     const tokenExists = await exists("projects", {
@@ -65,7 +59,6 @@
     projectfiles = collection;
   }
   checkDir();
-  collectProjects();
 </script>
 
 <div class="hero bg-base-100 min-h-120">
@@ -83,12 +76,6 @@
     </div>
   </div>
 </div>
-<h1 class="font-xl m-4 font-bold">Projects</h1>
-<ul class="list bg-base-200 rounded-box shadow-md m-4">
-  {#each projectfiles as projfile}
-    <Item json={projfile} />
-  {/each}
-</ul>
 
 <style>
   .hero {
