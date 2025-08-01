@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Item from "../item.svelte";
+    import Item from "./item.svelte";
     import { readDir, BaseDirectory } from "@tauri-apps/plugin-fs";
 
     let projectfiles: Array<any>;
