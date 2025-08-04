@@ -3,7 +3,7 @@
     import { goto } from "$app/navigation";
 </script>
 
-<div class="navbar bg-base-300 shadow-sm">
+<div class="navbar bg-base-300">
     <div class="flex-1">
         <a aria-label="Home" class="btn-circle avatar" href="/">
             <div class="w-10 rounded-full">
