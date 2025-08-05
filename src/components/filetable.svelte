@@ -4,7 +4,7 @@
 
 
 <div class="overflow-x-auto">
-    <table class="table bg-base-200 rounded-box shadow-md mt-8">
+    <table class="table bg-base-200 rounded-box shadow-md mt-4">
         <!-- head -->
         <thead>
             <tr>

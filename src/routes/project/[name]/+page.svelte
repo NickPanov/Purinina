@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Command } from "@tauri-apps/plugin-shell";
     import Filetable from "../../../components/filetable.svelte";
+    import Projectmenu from "./partials/projectmenu.svelte"; 
     interface ProjectSourceFile {
         name: string;
     }
@@ -30,6 +31,6 @@
             value={data.SourceDir}
         />
     </label>
-
+    <Projectmenu></Projectmenu>
     <Filetable data={data.Files}></Filetable>
 </article>
