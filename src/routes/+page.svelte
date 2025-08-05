@@ -31,7 +31,7 @@
     });
     const projectName = projectDir.split("\\").pop();
     const pm = new ProjectManager();
-    await pm.add(projectName, projectDir);
+    await pm.create(projectName, projectDir);
   }
 
   async function collectProjects() {
