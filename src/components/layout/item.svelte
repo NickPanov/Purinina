@@ -1,29 +1,16 @@
-<script lang="ts">
-    import { readTextFile, BaseDirectory } from "@tauri-apps/plugin-fs";
-
-    let { json } = $props();
-
-    let projectName = $state("");
-    let projectDir = $state("");
-
-    readTextFile(`projects\\${json.name}`, {
-        baseDir: BaseDirectory.AppLocalData,
-    }).then((res) => { 
-        let proj = JSON.parse(res);
-        projectName = proj.projectName;
-        projectDir = proj.projectDir;
-    });
+<script lang="ts"> 
+    let { name } = $props();
 </script>
-
+ 
 <li class="list-row">
     <div class="list-col-grow">
-        <div>{projectName}</div>
-        <div class="text-xs uppercase font-semibold opacity-60">
-            {projectDir}
+        <!-- <div>{name}</div> -->
+        <div class="text-xs uppercase font-semibold">
+            {name}
         </div>
     </div>
     <!-- svelte-ignore a11y_consider_explicit_label -->
-    <a href="/project/{json.name}" class="btn btn-square btn-ghost">
+    <a href="/project/{name}" class="btn btn-square btn-ghost">
         <svg
             class="size-[1.2em]"
             xmlns="http://www.w3.org/2000/svg"

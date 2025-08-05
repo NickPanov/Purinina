@@ -1,38 +1,51 @@
-import { load } from '@tauri-apps/plugin-store';
+import { load, Store } from "@tauri-apps/plugin-store"
 
+interface SourceFile {
 
-interface Project {
-    projectDir: string;
-    projectName: string;
-    files: DirEntry[];
 }
-
-class ProjectManager {
-    private projects: Map<string, any>;
-
-    constructor() {
-        this.projects = new Map();
+export class Project {
+    Name: string;
+    SourceDir: string;
+    CSSOutputDir: string;
+    JSOutputDir: string;
+    Files : Array<SourceFile>; 
+    constructor(name: string, dir: string) {
+        //new project is initialized as same dir for input and output;
+        this.Name = name;
+        this.SourceDir = dir;
+        this.CSSOutputDir = dir;
+        this.JSOutputDir = dir;
+    }
+}
+export class ProjectManager {
+    async load() {
+        return await load(`projects.purinina`, { autoSave: false });
     }
 
-    addProject(name: string, project: any): void {
-        if (this.projects.has(name)) {
+    async get(name: string) :Promise<Project | undefined> {
+        let projects = await this.load();
+        return await projects.get(name);
+    }
+    async list(): Promise<string[]> {
+        let projects = await this.load();
+        return  Array.from(await projects.keys());
+    }
+
+    async add(name: string, dir: any) {
+        const projects = await this.load();
+        let project = new Project(name, dir);
+        let duplicated = await projects.has(name);
+        if (duplicated) {
+            // TODO 
             throw new Error(`Project with name ${name} already exists.`);
         }
-        this.projects.set(name, project);
+        await projects.set(name, project);
+        await projects.save();
     }
-
-    getProject(name: string): any | undefined {
-        return this.projects.get(name);
-    }
-
-    removeProject(name: string): void {
+    remove(name: string): void {
         if (!this.projects.has(name)) {
             throw new Error(`Project with name ${name} does not exist.`);
         }
         this.projects.delete(name);
-    }
-
-    listProjects(): string[] {
-        return Array.from(this.projects.keys());
     }
 }
