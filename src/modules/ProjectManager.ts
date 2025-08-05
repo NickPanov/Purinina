@@ -24,10 +24,8 @@ export class ProjectManager {
         return projects.get(name);
     }
     async list(): Promise<string[]> {
-
-        return ['1', '2'];
-
-        return Array.from(this.projects.keys());
+        let projects = await this.load();
+        return  Array.from(await projects.keys());
     }
 
     async add(name: string, dir: any) {
