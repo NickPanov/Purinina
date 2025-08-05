@@ -9,7 +9,7 @@
     type DirEntry,
   } from "@tauri-apps/plugin-fs";
   import { open } from "@tauri-apps/plugin-dialog";
-  import Item from "../components/layout/item.svelte";
+  import { ProjectManager } from "../modules/ProjectManager";
 
   async function checkDir() {
     const tokenExists = await exists("projects", {
@@ -29,27 +29,9 @@
       multiple: false,
       directory: true,
     });
-
-    let projectName = projectDir.split("\\").pop();
-
-    let initialData = JSON.stringify({
-      projectName: projectName,
-      projectDir: projectDir,
-    });
-
-    await create(`projects\\${projectName}.json`, {
-      baseDir: BaseDirectory.AppLocalData,
-    });
-
-    await writeTextFile(`projects\\${projectName}.json`, initialData, {
-      baseDir: BaseDirectory.AppLocalData,
-    });
-    projectfiles.push({
-      name: `${projectName}.json`,
-      isDirectory: false,
-      isFile: true,
-      isSymlink: false,
-    });
+    const projectName = projectDir.split("\\").pop();
+    const pm = new ProjectManager();
+    await pm.add(projectName, projectDir);
   }
 
   async function collectProjects() {

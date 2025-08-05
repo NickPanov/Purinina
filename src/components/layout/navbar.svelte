@@ -16,13 +16,11 @@
             <Icon name="kebab" />
         </button>
 
-        <ul
-            class="mt-3 z-1 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-        >
+        <ul class="mt-3 z-1 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
             <li>
-                <button class="justify-between"
-                    >New Project <span class="badge">New</span></button
-                >
+                <button class="justify-between">
+                    New Project    
+                    </button>     
             </li>
             <li><button>Settings</button></li>
         </ul>

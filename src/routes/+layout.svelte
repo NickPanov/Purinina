@@ -8,7 +8,7 @@
 <div class="flex">
     <div class="w-full max-w-1/3 bg-base-200 min-h-screen">
         <Navbar></Navbar>
-        <Projects></Projects>
+        <Projects data="som strink"></Projects>
     </div>
     <div class="w-full max-w-2/3">
         {@render children()}

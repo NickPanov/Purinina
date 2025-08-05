@@ -5,14 +5,19 @@
 
     let projectName = $state("");
     let projectDir = $state("");
+ 
+ 
+    json.then(res=>{
+        console.log(res)
+    })
 
-    readTextFile(`projects\\${json.name}`, {
-        baseDir: BaseDirectory.AppLocalData,
-    }).then((res) => { 
-        let proj = JSON.parse(res);
-        projectName = proj.projectName;
-        projectDir = proj.projectDir;
-    });
+    // readTextFile(`projects\\${json.name}`, {
+    //     baseDir: BaseDirectory.AppLocalData,
+    // }).then((res) => { 
+    //     let proj = JSON.parse(res);
+    //     projectName = proj.projectName;
+    //     projectDir = proj.projectDir;
+    // });
 </script>
 
 <li class="list-row">
