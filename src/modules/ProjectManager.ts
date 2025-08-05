@@ -1,11 +1,14 @@
 import { load, Store } from "@tauri-apps/plugin-store"
 
+interface SourceFile {
 
-class Project {
+}
+export class Project {
     Name: string;
     SourceDir: string;
     CSSOutputDir: string;
     JSOutputDir: string;
+    Files : Array<SourceFile>; 
     constructor(name: string, dir: string) {
         //new project is initialized as same dir for input and output;
         this.Name = name;
@@ -19,9 +22,9 @@ export class ProjectManager {
         return await load(`projects.purinina`, { autoSave: false });
     }
 
-    async get(name: string) {
+    async get(name: string) :Promise<Project | undefined> {
         let projects = await this.load();
-        return projects.get(name);
+        return await projects.get(name);
     }
     async list(): Promise<string[]> {
         let projects = await this.load();

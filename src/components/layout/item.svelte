@@ -1,19 +1,12 @@
-<script lang="ts">
-    import { readTextFile, BaseDirectory } from "@tauri-apps/plugin-fs";
-
+<script lang="ts"> 
     let { name } = $props();
-
-    let projectName = $state("");
-    let projectDir = $state("");
-  
- 
 </script>
-
+ 
 <li class="list-row">
     <div class="list-col-grow">
-        <div>{projectName}</div>
-        <div class="text-xs uppercase font-semibold opacity-60">
-            {projectDir}
+        <!-- <div>{name}</div> -->
+        <div class="text-xs uppercase font-semibold">
+            {name}
         </div>
     </div>
     <!-- svelte-ignore a11y_consider_explicit_label -->
