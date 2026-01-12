@@ -15,7 +15,7 @@
     const tokenExists = await exists("projects", {
       baseDir: BaseDirectory.AppLocalData,
     });
-    console.log("check", tokenExists);
+    
     if (!tokenExists) {
       await mkdir("projects", {
         baseDir: BaseDirectory.AppLocalData,

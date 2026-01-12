@@ -21,7 +21,10 @@ export class ProjectManager {
     async load() {
         return await load(`projects.purinina`, { autoSave: false });
     }
-
+    async count(): Promise<number> {
+        let projects = await this.load();
+        return (await projects.keys()).length;
+    }
     async get(name: string): Promise<Project | undefined> {
         let projects = await this.load();
         return await projects.get(name);
@@ -36,11 +39,12 @@ export class ProjectManager {
         let project = new Project(name, dir);
         let duplicated = await projects.has(name);
         if (duplicated) {
-            // TODO 
+            // TODO Proper alert modal
             throw new Error(`Project with name ${name} already exists.`);
         }
         await projects.set(name, project);
         await projects.save();
+         // TODO Success and navigate to project page
     }
     async update(name: string, project: Project) {
 
@@ -50,8 +54,10 @@ export class ProjectManager {
         let projects = await this.load();
         let exist = await projects.has(name)
         if (!exist) {
+             // TODO Proper alert modal
             throw new Error(`Project with name ${name} does not exist.`);
         }
         projects.delete(name);
+        //TODO Success and navigate to home page
     }
 }

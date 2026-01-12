@@ -1,5 +1,6 @@
 <script>
   import Icon from "../../../../components/icon.svelte";
+  //TODO Create reload function that crawls the directory and updates the project list
 </script>
 
 <ul class="menu bg-base-200 lg:menu-horizontal rounded-box mt-4">
