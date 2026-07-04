@@ -3,9 +3,7 @@
     import Projects from "../components/layout/projects.svelte"; 
     import { GlobalState } from "../modules/GlobalContext.svelte";
     let { data, children } = $props();
-    $inspect("Dynamic", GlobalState.ProjectsList.value);
-
-    //TODO Make the aside hiding truly reactive to project list changes
+    
 </script>
 
 <div class="flex">

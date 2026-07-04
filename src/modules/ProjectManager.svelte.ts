@@ -24,8 +24,7 @@ export class ProjectManager {
     //dynamic state properties
     
     static reload = async (message:string) => {
-        console.log("Reloading:", message);
-        // List = await this.list();
+         GlobalState.ProjectsList = await this.list();
     } 
     //Private methods
     static async load() {
