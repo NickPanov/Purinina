@@ -1,5 +1,5 @@
 import { load, Store } from "@tauri-apps/plugin-store"
-
+import { GlobalState } from "../modules/GlobalContext.svelte";
 interface SourceFile {
 
 }
@@ -16,25 +16,38 @@ export class Project {
         this.CSSOutputDir = dir;
         this.JSOutputDir = dir;
     }
-}
+};
+
+
+
 export class ProjectManager {
-    async load() {
+    //dynamic state properties
+    
+    static reload = async (message:string) => {
+        console.log("Reloading:", message);
+        // List = await this.list();
+    } 
+    //Private methods
+    static async load() {
         return await load(`projects.purinina`, { autoSave: false });
     }
-    async count(): Promise<number> {
+    static async count(): Promise<number> {
         let projects = await this.load();
         return (await projects.keys()).length;
     }
-    async get(name: string): Promise<Project | undefined> {
-        let projects = await this.load();
+    async get(name: string) {
+        let projects = await ProjectManager.load();
         return await projects.get(name);
     }
-    async list(): Promise<string[]> {
+    static async list(): Promise<any> {
         let projects = await this.load();
-        return Array.from(await projects.keys());
+        let result = Array.from(await projects.keys());
+        console.log("returning project list", result);
+
+        return result;
     }
 
-    async create(name: string, dir: any) {
+    static async create(name: string, dir: any) {
         const projects = await this.load();
         let project = new Project(name, dir);
         let duplicated = await projects.has(name);
@@ -42,22 +55,30 @@ export class ProjectManager {
             // TODO Proper alert modal
             throw new Error(`Project with name ${name} already exists.`);
         }
-        await projects.set(name, project);
-        await projects.save();
-         // TODO Success and navigate to project page
+        let setter = await projects.set(name, project);
+        let saver = await projects.save();
+        Promise.all([setter, saver]).then(() => { 
+            this.reload('create') 
+        });
+
+        // TODO Success and navigate to project page
     }
-    async update(name: string, project: Project) {
+    static async update(name: string, project: Project) {
 
     }
-    async remove(name: string) {
-        console.log(name);
+    static async remove(name: string) {
         let projects = await this.load();
         let exist = await projects.has(name)
         if (!exist) {
-             // TODO Proper alert modal
+            // TODO Proper alert modal
             throw new Error(`Project with name ${name} does not exist.`);
         }
         projects.delete(name);
+        this.reload('remove');
         //TODO Success and navigate to home page
     }
-}
+};
+
+ProjectManager.list().then((list) => {
+    GlobalState.ProjectsList = list;
+}); 

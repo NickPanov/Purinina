@@ -1,28 +1,20 @@
 <script lang="ts">
     import Navbar from "../components/layout/navbar.svelte";
-    import Projects from "../components/layout/projects.svelte";
-    import { ProjectManager } from "../modules/ProjectManager";
-    let pm = new ProjectManager();
+    import Projects from "../components/layout/projects.svelte"; 
+    import { GlobalState } from "../modules/GlobalContext.svelte";
     let { data, children } = $props();
-    let showAside = $state(false);
-
-    (async () => {
-        let res = await pm.count() > 0;
-        console.log(res)
-        showAside = res;
-    })();   
+    $inspect("Dynamic", GlobalState.ProjectsList.value);
 
     //TODO Make the aside hiding truly reactive to project list changes
 </script>
 
 <div class="flex">
-    {#if showAside}
+    
+    {#if GlobalState.ProjectsList.length > 0}
         <div class="w-full max-w-1/3 bg-base-200 min-h-screen">
             <Navbar></Navbar>
-            <Projects data={data.ProjectsList}></Projects>
+            <Projects data={GlobalState.ProjectsList}></Projects>
         </div>
-        {:else}
-        <p>No data</p>
     {/if}
     <div class="w-full">
         {@render children()}

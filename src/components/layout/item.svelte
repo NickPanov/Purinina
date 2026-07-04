@@ -1,34 +1,41 @@
 <script lang="ts">
     import Icon from "../icon.svelte";
-    import { ProjectManager } from "../../modules/ProjectManager";
-    let { name } = $props();
+    import { ProjectManager } from "../../modules/ProjectManager.svelte";
     let pm = new ProjectManager();
+    let { Name } = $props();
+   
 
+    let SourceDir = $state("empty..");
+    $effect(function () {
+        pm.get(Name).then((res: any) => {
+            SourceDir = res.SourceDir;
+        });
+    });
+
+    //Methods
     function deleteProject() {
         let confirmDelete: any = document.getElementById(`confirm_delete_01`);
-
-        console.log("deleting", name);
-        console.log(confirmDelete);
+ 
 
         if (confirmDelete) {
             confirmDelete.showModal();
         }
     }
     async function deleteConfirmed() {
-        let removal = await pm.remove(name);
+        let removal = await ProjectManager.remove(Name);
         let confirmDelete: any = document.getElementById(`confirm_delete_01`);
         if (confirmDelete) {
             confirmDelete.close();
         }
-        console.log(removal);
+       
     }
 </script>
 
 <li class="list-row">
     <div class="list-col-grow">
-        <div>{name}</div>
+        <div>{Name}</div>
         <div class="text-xs uppercase font-semibold opacity-80">
-            {name} Source Directory
+            {SourceDir}
         </div>
     </div>
     <!-- svelte-ignore a11y_consider_explicit_label -->
@@ -41,7 +48,7 @@
         <div class="modal-box">
             <h3 class="text-lg font-bold">Delete project?</h3>
             <p class="py-4">
-                Are you sure you want to delete <strong>{name}</strong>
+                Are you sure you want to delete <strong>{Name}</strong>
             </p>
             <div class="modal-action">
                 <form method="dialog">
@@ -57,7 +64,7 @@
         </div>
     </dialog>
     <div class="tooltip" data-tip="Select">
-        <a href="/project/{name}" class="btn btn-square btn-ghost">
+        <a href="/project/{Name}" class="btn btn-square btn-ghost">
             <Icon name="right"></Icon>
         </a>
     </div>
