@@ -1,6 +1,7 @@
 <script lang="ts">
     import Icon from "../icon.svelte";
     import { ProjectManager } from "../../modules/ProjectManager.svelte";
+    import { toast } from "../../modules/toaster.svelte";
     let pm = new ProjectManager();
     let { Name } = $props();
    
@@ -11,23 +12,25 @@
             SourceDir = res.SourceDir;
         });
     });
-
+    
     //Methods
+    let confirmDeleteDialog: any;
     function deleteProject() {
-        let confirmDelete: any = document.getElementById(`confirm_delete_01`);
- 
-
-        if (confirmDelete) {
-            confirmDelete.showModal();
+        if (confirmDeleteDialog) {
+            confirmDeleteDialog.showModal();
         }
     }
     async function deleteConfirmed() {
-        let removal = await ProjectManager.remove(Name);
-        let confirmDelete: any = document.getElementById(`confirm_delete_01`);
-        if (confirmDelete) {
-            confirmDelete.close();
+        ProjectManager.remove(Name).then(() => {
+            // Project deleted successfully
+            toast.success(`Project ${Name} deleted successfully.`);
+        }).catch((error) => {
+            // Handle error
+            toast.error(error);
+        });
+        if (confirmDeleteDialog) {
+            confirmDeleteDialog.close();
         }
-       
     }
 </script>
 
@@ -44,7 +47,7 @@
             <Icon name="remove"></Icon>
         </button>
     </div>
-    <dialog id="confirm_delete_01" class="modal">
+    <dialog id="confirm_delete_01" class="modal" bind:this={confirmDeleteDialog}>
         <div class="modal-box">
             <h3 class="text-lg font-bold">Delete project?</h3>
             <p class="py-4">

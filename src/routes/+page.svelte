@@ -10,6 +10,9 @@
   } from "@tauri-apps/plugin-fs";
   import { open } from "@tauri-apps/plugin-dialog";
   import { ProjectManager } from "../modules/ProjectManager.svelte";
+  import { toast } from "../modules/toaster.svelte";
+
+ 
 
   async function checkDir() {
     const tokenExists = await exists("projects", {
@@ -30,7 +33,13 @@
       directory: true,
     });
     const projectName = projectDir.split("\\").pop(); 
-    await ProjectManager.create(projectName, projectDir);
+    ProjectManager.create(projectName, projectDir).then(() => {
+      // Project created successfully
+      toast.success(`Project ${projectName} created successfully.`);
+    }).catch((error) => {
+      // Handle error
+      toast.error(error);
+    });
   }
 
   checkDir();
@@ -42,15 +51,16 @@
     <div class="max-w-md">
       <h1 class="text-5xl font-bold">PURININA</h1>
       <p class="py-6">Is not a Koala.</p>
-      <button type="button" class="btn btn-primary" onclick={checkDir}
-        >Check</button
-      >
-      <button type="button" class="btn btn-primary" onclick={newProject}
-        >Add Project</button
-      >
+      <button type="button" class="btn btn-neutral" onclick={checkDir}>
+        Check
+      </button>
+      <button type="button" class="btn btn-primary" onclick={newProject}>
+        Add Project
+      </button>
     </div>
   </div>
 </div>
+
 
 <style>
   .hero {

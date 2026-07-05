@@ -1,5 +1,5 @@
 import { load, Store } from "@tauri-apps/plugin-store"
-import { GlobalState } from "../modules/GlobalContext.svelte";
+import { GlobalState } from "../modules/GlobalContext.svelte"; 
 interface SourceFile {
 
 }
@@ -48,12 +48,14 @@ export class ProjectManager {
 
     static async create(name: string, dir: any) {
         const projects = await this.load();
-        let project = new Project(name, dir);
+        
         let duplicated = await projects.has(name);
         if (duplicated) {
-            // TODO Proper alert modal
+            
             throw new Error(`Project with name ${name} already exists.`);
         }
+
+        let project = new Project(name, dir);
         let setter = await projects.set(name, project);
         let saver = await projects.save();
         Promise.all([setter, saver]).then(() => { 
@@ -69,7 +71,7 @@ export class ProjectManager {
         let projects = await this.load();
         let exist = await projects.has(name)
         if (!exist) {
-            // TODO Proper alert modal
+             
             throw new Error(`Project with name ${name} does not exist.`);
         }
         projects.delete(name);
