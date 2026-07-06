@@ -62,8 +62,6 @@ export class ProjectManager {
             this.reload('create');
             goto(`/project/${name}`);
         });
-
-       
     }
     static async update(name: string, project: Project) {
 
@@ -77,7 +75,8 @@ export class ProjectManager {
         }
         projects.delete(name);
         this.reload('remove');
-        //TODO Success and navigate to home page
+        goto(`/`);
+         
     }
 };
 
