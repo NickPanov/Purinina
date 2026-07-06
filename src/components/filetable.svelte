@@ -2,6 +2,7 @@
     let { data } = $props();
 </script>
 
+TODO: Group files by file type and add a filter to show only certain file types. 
 
 <div class="overflow-x-auto">
     <table class="table bg-base-200 rounded-box shadow-md mt-4">
