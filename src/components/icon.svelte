@@ -65,6 +65,7 @@
         width: 24px;
         height: 24px;
         fill: none;
-        /* stroke: var(--color-base-content); */
-    }
-</style>
+        stroke: var(--color-base-content);
+          stroke: currentColor;
+    } 
+</style>    

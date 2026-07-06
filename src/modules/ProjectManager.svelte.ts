@@ -1,5 +1,6 @@
 import { load, Store } from "@tauri-apps/plugin-store"
 import { GlobalState } from "../modules/GlobalContext.svelte"; 
+import { goto } from "$app/navigation";
 interface SourceFile {
 
 }
@@ -47,11 +48,10 @@ export class ProjectManager {
     }
 
     static async create(name: string, dir: any) {
+        //TODO: We should create projects by ID and check for duplicates by URI;
         const projects = await this.load();
-        
         let duplicated = await projects.has(name);
         if (duplicated) {
-            
             throw new Error(`Project with name ${name} already exists.`);
         }
 
@@ -59,10 +59,11 @@ export class ProjectManager {
         let setter = await projects.set(name, project);
         let saver = await projects.save();
         Promise.all([setter, saver]).then(() => { 
-            this.reload('create') 
+            this.reload('create');
+            goto(`/project/${name}`);
         });
 
-        // TODO Success and navigate to project page
+       
     }
     static async update(name: string, project: Project) {
 

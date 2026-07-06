@@ -44,7 +44,7 @@
 
   checkDir();
 </script>
-
+<!-- BUG : Center the logo page  -->
 <div class="hero bg-base-100 min-h-120">
   <div class="purinina-logo"></div>
   <div class="hero-content text-center">
