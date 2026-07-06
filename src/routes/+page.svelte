@@ -44,8 +44,8 @@
 
   checkDir();
 </script>
-<!-- BUG : Center the logo page  -->
-<div class="hero bg-base-100 min-h-120">
+ 
+<div class="hero bg-base-100 min-h-screen">
   <div class="purinina-logo"></div>
   <div class="hero-content text-center">
     <div class="max-w-md">
@@ -76,5 +76,6 @@
     background-image: url("purinina-simple.svg");
     background-size: cover;
     border-radius: 100%;
+    border: 1px solid ;
   }
 </style>

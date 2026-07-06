@@ -76,7 +76,6 @@ export class ProjectManager {
         projects.delete(name);
         this.reload('remove');
         goto(`/`);
-         
     }
 };
 
