@@ -24,7 +24,7 @@
 
 <div class="navbar bg-base-300">
     <div class="flex-1">
-        <a aria-label="Home" class="btn-circle avatar" href="/">
+        <a aria-label="Home" class="btn-circle avatar" href="/"> 
             <div class="w-10 rounded-full">
                 <div class="purinina-logo"></div>
             </div>
@@ -50,7 +50,7 @@
         height: 40px;
         margin-bottom: 2rem;
         background-color: hsl(213, 18%, 90%);
-        background-image: url("purinina-simple.svg");
+        background-image: url("/purinina-simple.svg");
         background-size: cover;
         border-radius: 100%;
     }

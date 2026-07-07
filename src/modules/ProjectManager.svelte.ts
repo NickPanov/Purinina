@@ -1,17 +1,20 @@
 import { load, Store } from "@tauri-apps/plugin-store"
-import { GlobalState } from "../modules/GlobalContext.svelte"; 
+import { GlobalState } from "../modules/GlobalContext.svelte";
 import { goto } from "$app/navigation";
+// This is the module that manages the Projects and their filelists;
 interface SourceFile {
 
 }
 export class Project {
+    ID: string;
     Name: string;
     SourceDir: string;
     CSSOutputDir: string;
     JSOutputDir: string;
     Files: Array<SourceFile>;
-    constructor(name: string, dir: string) {
+    constructor(name: string = 'Project name', dir: string= './') {
         //new project is initialized as same dir for input and output;
+        this.ID = `${Date.now()}-${crypto.randomUUID()}`;
         this.Name = name;
         this.SourceDir = dir;
         this.CSSOutputDir = dir;
@@ -19,25 +22,27 @@ export class Project {
     }
 };
 
-
-
 export class ProjectManager {
-    //dynamic state properties
-    
-    static reload = async (message:string) => {
-         GlobalState.ProjectsList = await this.list();
-    } 
-    //Private methods
     static async load() {
+        //TODO: Shall we migrate to LazyStore?
         return await load(`projects.purinina`, { autoSave: false });
     }
+
+    static reload = async (message: string) => {
+        GlobalState.ProjectsList = await this.list();
+    }
+    static async dupeCheck(key: keyof Project, value: any) {
+        const projects = await this.load();
+        return Array.from(await projects.values()).some((object: any) => object[key] == value)
+    }
+
     static async count(): Promise<number> {
         let projects = await this.load();
         return (await projects.keys()).length;
     }
-    async get(name: string) {
+    static async get(id: string) : Promise<Project | undefined> {
         let projects = await ProjectManager.load();
-        return await projects.get(name);
+        return await projects.get(id);
     }
     static async list(): Promise<any> {
         let projects = await this.load();
@@ -48,19 +53,28 @@ export class ProjectManager {
     }
 
     static async create(name: string, dir: any) {
-        //TODO: We should create projects by ID and check for duplicates by URI;
+        //TODO: We should create projects by ID and check for duplicates by URI; 
+        //then WARN the user, but not prevent them from creating a project with the same path;
+        //We should also check for duplicates by name, and warn the user, but not prevent them from creating a project with the same name;
         const projects = await this.load();
-        let duplicated = await projects.has(name);
-        if (duplicated) {
-            throw new Error(`Project with name ${name} already exists.`);
-        }
+        let newProject = new Project(name, dir);
 
-        let project = new Project(name, dir);
-        let setter = await projects.set(name, project);
+
+        let dupedSourceDir = await this.dupeCheck("SourceDir", newProject.SourceDir);
+        if (dupedSourceDir) {
+            //TODO throw warning confirm
+        }
+        let dupedName = await this.dupeCheck("SourceDir", newProject.SourceDir);
+        if (dupedName) {
+            //TODO throw warning confirm, ask to rename as +(1);
+        }
+ 
+        let setter = await projects.set(newProject.ID, newProject);
         let saver = await projects.save();
-        Promise.all([setter, saver]).then(() => { 
+
+        Promise.all([setter, saver]).then(() => {
             this.reload('create');
-            goto(`/project/${name}`);
+            goto(`/project/${newProject.ID}`);
         });
     }
     static async update(name: string, project: Project) {
@@ -70,7 +84,7 @@ export class ProjectManager {
         let projects = await this.load();
         let exist = await projects.has(name)
         if (!exist) {
-             
+
             throw new Error(`Project with name ${name} does not exist.`);
         }
         projects.delete(name);

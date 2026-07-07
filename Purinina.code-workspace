@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../Users/nickp/AppData/Roaming/com.purinina.app"
+		}
+	],
+	"settings": {
+		"svelte.enable-ts-plugin": true,
+		"better-todo-tree.tree.showBadges": true
+	}
+}

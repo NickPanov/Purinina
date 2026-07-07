@@ -73,7 +73,7 @@
     height: 160px;
     margin-bottom: 2rem;
     background-color: hsl(213, 18%, 90%);
-    background-image: url("purinina-simple.svg");
+    background-image: url("/purinina-simple.svg");
     background-size: cover;
     border-radius: 100%;
     border: 1px solid ;

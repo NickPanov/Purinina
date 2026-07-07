@@ -7,6 +7,6 @@
 <ul class="list bg-base-100 rounded-box shadow-md m-4">
 
    {#each data as projectName}
-        <Item Name={projectName} />
+        <Item ID={projectName} />
     {/each}
 </ul>
