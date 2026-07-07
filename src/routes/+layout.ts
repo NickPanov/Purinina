@@ -5,7 +5,7 @@ export const prerender = true;
 export const ssr = false;
 import "../app.css";
 import { ProjectManager } from "../modules/ProjectManager.svelte";
-let pm = new ProjectManager();
+ 
 
 
 // export async function load({ params }) {
