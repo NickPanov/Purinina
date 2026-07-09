@@ -14,6 +14,7 @@ function add(message: string, type: string = "info") {
     const toast = new Toast(message, type);
     console.log("adding toast", toast);
     ToasterArray.push(toast);
+    //TODO: Make them disapear;
 }
 export class toast {
     static success(message: string) {

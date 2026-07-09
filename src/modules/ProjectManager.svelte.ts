@@ -15,6 +15,7 @@ export class Project {
     constructor(name: string = 'Project name', dir: string= './') {
         //new project is initialized as same dir for input and output;
         this.ID = `${Date.now()}-${crypto.randomUUID()}`;
+        //TODO - inital name should be function from the SourceDir; Later it could be changed;
         this.Name = name;
         this.SourceDir = dir;
         this.CSSOutputDir = dir;
@@ -69,25 +70,26 @@ export class ProjectManager {
             //TODO throw warning confirm, ask to rename as +(1);
         }
  
-        let setter = await projects.set(newProject.ID, newProject);
-        let saver = await projects.save();
+        let setter = projects.set(newProject.ID, newProject);
+        let saver = projects.save();
 
         Promise.all([setter, saver]).then(() => {
             this.reload('create');
             goto(`/project/${newProject.ID}`);
         });
+
     }
     static async update(name: string, project: Project) {
 
     }
-    static async remove(name: string) {
+    static async remove(ID: string) {
         let projects = await this.load();
-        let exist = await projects.has(name)
+        let exist = await projects.has(ID)
         if (!exist) {
-
-            throw new Error(`Project with name ${name} does not exist.`);
+            //TODO we should extract the name of the project;
+            throw new Error(`Project with name ${ID} does not exist.`);
         }
-        projects.delete(name);
+        projects.delete(ID);
         this.reload('remove');
         goto(`/`);
     }

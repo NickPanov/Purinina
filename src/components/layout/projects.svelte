@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Item from "./item.svelte";
+    import Item from "./project-list-item.svelte";
     let { data } = $props();  
 </script>
 

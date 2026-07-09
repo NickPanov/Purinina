@@ -35,6 +35,7 @@
     const projectName = projectDir.split("\\").pop(); 
     ProjectManager.create(projectName, projectDir).then(() => {
       // Project created successfully
+      //TODO: Can we bold the Project name?
       toast.success(`Project ${projectName} created successfully.`);
     }).catch((error) => {
       // Handle error

@@ -50,7 +50,7 @@
         </button>
     </div>
 
-    <div class="tooltip" data-tip="Select">
+    <div class="tooltip" data-tip="Select"> 
         <a href="/project/{ID}" class="btn btn-square btn-ghost">
             <Icon name="right"></Icon>
         </a>
