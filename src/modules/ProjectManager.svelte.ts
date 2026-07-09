@@ -14,8 +14,7 @@ export class Project {
     Files: Array<SourceFile>;
     constructor(dir: string= './') {
         //new project is initialized as same dir for input and output;
-        this.ID = `${Date.now()}-${crypto.randomUUID()}`; 
-        //TODO: Can we bold the Project name?
+        this.ID = `${Date.now()}-${crypto.randomUUID()}`;  
         this.Name = dir.split("\\").pop() ?? "";
         this.SourceDir = dir;
         this.CSSOutputDir = dir;

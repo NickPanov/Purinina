@@ -32,7 +32,7 @@
     });
     try {
       let newProject = await ProjectManager.create(projectDir);
-      toast.success(`Project ${newProject.Name} created successfully.`);
+      toast.success(`Project <strong> ${newProject.Name} </strong> created successfully.`);
     } catch (error) {
       toast.error(error);
     } 

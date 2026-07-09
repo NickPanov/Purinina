@@ -18,11 +18,9 @@ function add(message: string, type: string = "info") {
 }
 export class toast {
     static success(message: string) {
-          console.log("posting sss")
         add(message, "success");
     }
     static error(message: string) { 
-        console.log("posting err")
         add(message, "error");
     }
     static info(message: string) {

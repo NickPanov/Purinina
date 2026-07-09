@@ -12,7 +12,8 @@
       directory: true,
     });
     const projectName = projectDir.split("\\").pop(); 
-    ProjectManager.create(projectName, projectDir).then(() => {
+    //TODO:Merge the methods.. somehow. Dialog plugin should be called from the manager maybe?
+    ProjectManager.create(projectDir).then(() => {
       // Project created successfully
       toast.success(`Project ${projectName} created successfully.`);
     }).catch((error) => {
