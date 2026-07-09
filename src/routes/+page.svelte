@@ -12,40 +12,34 @@
   import { ProjectManager } from "../modules/ProjectManager.svelte";
   import { toast } from "../modules/toaster.svelte";
 
- 
-
   async function checkDir() {
     const tokenExists = await exists("projects", {
       baseDir: BaseDirectory.AppLocalData,
     });
-    
+
     if (!tokenExists) {
       await mkdir("projects", {
         baseDir: BaseDirectory.AppLocalData,
       });
     }
   }
- 
+
   async function newProject() {
     // Open a dialog
     const projectDir: any = await open({
       multiple: false,
       directory: true,
     });
-    const projectName = projectDir.split("\\").pop(); 
-    ProjectManager.create(projectName, projectDir).then(() => {
-      // Project created successfully
-      //TODO: Can we bold the Project name?
-      toast.success(`Project ${projectName} created successfully.`);
-    }).catch((error) => {
-      // Handle error
+    try {
+      let newProject = await ProjectManager.create(projectDir);
+      toast.success(`Project ${newProject.Name} created successfully.`);
+    } catch (error) {
       toast.error(error);
-    });
+    } 
   }
 
   checkDir();
 </script>
- 
 <div class="hero bg-base-100 min-h-screen">
   <div class="purinina-logo"></div>
   <div class="hero-content text-center">
@@ -62,7 +56,6 @@
   </div>
 </div>
 
-
 <style>
   .hero {
     display: flex;
@@ -77,6 +70,6 @@
     background-image: url("/purinina-simple.svg");
     background-size: cover;
     border-radius: 100%;
-    border: 1px solid ;
+    border: 1px solid;
   }
 </style>

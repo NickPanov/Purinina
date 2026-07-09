@@ -12,11 +12,11 @@ export class Project {
     CSSOutputDir: string;
     JSOutputDir: string;
     Files: Array<SourceFile>;
-    constructor(name: string = 'Project name', dir: string= './') {
+    constructor(dir: string= './') {
         //new project is initialized as same dir for input and output;
-        this.ID = `${Date.now()}-${crypto.randomUUID()}`;
-        //TODO - inital name should be function from the SourceDir; Later it could be changed;
-        this.Name = name;
+        this.ID = `${Date.now()}-${crypto.randomUUID()}`; 
+        //TODO: Can we bold the Project name?
+        this.Name = dir.split("\\").pop() ?? "";
         this.SourceDir = dir;
         this.CSSOutputDir = dir;
         this.JSOutputDir = dir;
@@ -53,14 +53,12 @@ export class ProjectManager {
         return result;
     }
 
-    static async create(name: string, dir: any) {
+    static async create(dir: any) {
         //TODO: We should create projects by ID and check for duplicates by URI; 
         //then WARN the user, but not prevent them from creating a project with the same path;
         //We should also check for duplicates by name, and warn the user, but not prevent them from creating a project with the same name;
         const projects = await this.load();
-        let newProject = new Project(name, dir);
-
-
+        let newProject = new Project(dir);
         let dupedSourceDir = await this.dupeCheck("SourceDir", newProject.SourceDir);
         if (dupedSourceDir) {
             //TODO throw warning confirm
@@ -69,15 +67,14 @@ export class ProjectManager {
         if (dupedName) {
             //TODO throw warning confirm, ask to rename as +(1);
         }
- 
         let setter = projects.set(newProject.ID, newProject);
         let saver = projects.save();
 
         Promise.all([setter, saver]).then(() => {
-            this.reload('create');
+            this.reload('create'); 
             goto(`/project/${newProject.ID}`);
         });
-
+        return newProject;
     }
     static async update(name: string, project: Project) {
 
