@@ -1,5 +1,10 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
- @plugin "daisyui" {
-   themes: garden --default;
- }
+
+@plugin "daisyui" {
+  themes: dim --default;
+}
+
+@plugin "@iconify/tailwind4" {
+   scale: 1.75;
+}

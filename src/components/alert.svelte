@@ -1,17 +1,17 @@
 <script lang="ts">
-    import Icon from "./icon.svelte";
+    import Icon from "./svg.svelte";
     let { message, type, id } = $props();
 </script>
 
 {#snippet success()}
-    <div role="alert" class="alert alert-success">
-        <Icon name="success" />
+    <div role="alert" class="alert alert-success"> 
+        <i class="icon-[solar--check-circle-line-duotone]"></i>
         <span>{@html message}</span>
     </div>
 {/snippet}
 {#snippet error()}
     <div role="alert" class="alert alert-error">
-        <Icon name="error" />
+       <i class="icon-[solar--close-circle-line-duotone]"></i>
         <span>{@html message}</span>
     </div>
 {/snippet}

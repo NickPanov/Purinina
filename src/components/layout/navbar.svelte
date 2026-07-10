@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Icon from "../icon.svelte";
     import { goto } from "$app/navigation";
     import {ProjectManager} from "../../modules/ProjectManager.svelte";
     import { open } from "@tauri-apps/plugin-dialog";
@@ -32,8 +31,8 @@
         </a>
     </div>
     <div class="dropdown dropdown-end flex-none">
-        <button class="btn btn-square btn-ghost">
-            <Icon name="kebab" />
+        <button aria-label="Menu" class="btn btn-square btn-ghost"> 
+            <i class="icon-[solar--menu-dots-circle-line-duotone]"></i>
         </button>
         
         <ul class="mt-3 z-1 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">

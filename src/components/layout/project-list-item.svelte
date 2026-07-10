@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Icon from "../icon.svelte";
     import {
         Project,
         ProjectManager,
@@ -46,13 +45,15 @@
     <!-- svelte-ignore a11y_consider_explicit_label -->
     <div class="tooltip" data-tip="Delete">
         <button class="btn btn-square btn-ghost" onclick={deleteProject}>
-            <Icon name="remove"></Icon>
+            <i class="icon-[solar--close-circle-line-duotone]"></i>
         </button>
     </div>
 
     <div class="tooltip" data-tip="Select"> 
         <a href="/project/{ID}" class="btn btn-square btn-ghost">
-            <Icon name="right"></Icon>
+            <i class="icon-[solar--round-arrow-right-line-duotone]"></i>
+            
+            <!-- <Icon name="right"></Icon> -->
         </a>
     </div>
 </li>

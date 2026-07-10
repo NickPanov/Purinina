@@ -1,12 +1,12 @@
 <script lang="ts">
     import { Command } from "@tauri-apps/plugin-shell";
-    import Filetable from "../../../components/filetable.svelte"; 
+    import Filetable from "../../../components/filetable.svelte";
     interface ProjectSourceFile {
         name: string;
     }
-    let { data } = $props(); 
+    let { data } = $props();
     //TODO create a new SASS compiler that will compile SASS files to CSS
- 
+
     // async function compileSrc(file: ProjectSourceFile) {
     //     let escapedDirPath = SourceDir.replaceAll(" ", "\\ ");
     //     await Command.create("cmd", [
@@ -17,15 +17,6 @@
 
     //TODO Create reload function that crawls the directory and updates the project files list
 </script>
-
-<ul class="menu bg-base-200 lg:menu-horizontal rounded-box mt-4">
-  <li>
-    <button class="btn btn-secondary"> 
-      Reload 
-    </button>
-  </li>
-   
-</ul>
 
 <div class="navbar bg-base-200">
     <div class="flex-1">
@@ -42,5 +33,10 @@
             value={data.SourceDir}
         />
     </label>
-    <Filetable data={data.Files}></Filetable>
+    <ul class="menu bg-base-200 lg:menu-horizontal rounded-box mt-4">
+        <li>
+            <button class="btn btn-secondary"> Reload </button>
+        </li>
+    </ul>
+    <Filetable filelist={data.Files}></Filetable>
 </article>

@@ -1,5 +1,7 @@
 <script lang="ts">
-    let { data } = $props();
+    let { filelist } = $props();
+    let groupedByType;
+    console.log(filelist)
 </script>
 
 <!-- TODO: Group files by file type and add a filter to show only certain file types.  -->
@@ -11,7 +13,7 @@
             <tr>
                 <th>
                     <label>
-                        <input type="checkbox" class="checkbox" />
+                        <input type="checkbox" class="checkbox" /> 
                     </label>
                 </th>
                 <th>Source</th>
@@ -20,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each data as file}
+            {#each filelist as file}
                 <tr>
                     <th>
                         <label>
