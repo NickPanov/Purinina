@@ -52,7 +52,7 @@
     <div class="tooltip" data-tip="Select"> 
         <a href="/project/{ID}" class="btn btn-square btn-ghost">
             <i class="icon-[solar--round-arrow-right-line-duotone]"></i> 
-            <!-- FIXME: links don't work from Project page! -->
+            
             <!-- <Icon name="right"></Icon> -->
         </a>
     </div>
