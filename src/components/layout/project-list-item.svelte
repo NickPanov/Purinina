@@ -4,20 +4,21 @@
         ProjectManager,
     } from "../../modules/ProjectManager.svelte";
     import { toast } from "../../modules/toaster.svelte";
+    import Dialog from "../dialog.svelte";
 
-    const { ID } = $props(); 
+    const { ID } = $props();
 
-    let CurrentProject : any = $state({Name:'default',SourceDir:'default'});
+    let CurrentProject: any = $state({ Name: "default", SourceDir: "default" });
     ProjectManager.get(ID)
         .then((res) => (CurrentProject = res))
-        .catch((error) => {throw new Error(error)});
+        .catch((error) => {
+            throw new Error(error);
+        });
 
     //Methods
-    let confirmDeleteDialog: any;
+    let dialogElement: any;
     function deleteProject() {
-        if (confirmDeleteDialog) {
-            confirmDeleteDialog.showModal();
-        }
+        dialogElement.showModal();
     }
     async function deleteConfirmed() {
         ProjectManager.remove(ID)
@@ -29,9 +30,6 @@
                 // Handle error
                 toast.error(error);
             });
-        if (confirmDeleteDialog) {
-            confirmDeleteDialog.close();
-        }
     }
 </script>
 
@@ -49,33 +47,18 @@
         </button>
     </div>
 
-    <div class="tooltip" data-tip="Select"> 
+    <div class="tooltip" data-tip="Select">
         <a href="/project/{ID}" class="btn btn-square btn-ghost">
-            <i class="icon-[solar--round-arrow-right-line-duotone]"></i> 
-            
+            <i class="icon-[solar--round-arrow-right-line-duotone]"></i>
+
             <!-- <Icon name="right"></Icon> -->
         </a>
     </div>
 </li>
-<!-- TODO Dialogs component? -->
-<dialog id="confirm_delete_01" class="modal" bind:this={confirmDeleteDialog}>
-    <div class="modal-box">
-        <h3 class="text-lg font-bold">Delete project?</h3>
-        <p class="py-4">
-            Are you sure you want to delete <strong
-                >{CurrentProject.Name}</strong
-            >
-        </p>
-        <div class="modal-action">
-            <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn">Dismiss</button>
-                <button
-                    type="button"
-                    class="btn btn-accent"
-                    onclick={deleteConfirmed}>Delete</button
-                >
-            </form>
-        </div>
-    </div>
-</dialog>
+<Dialog
+    bind:reference={dialogElement}
+    bind:action={deleteConfirmed}
+    confirmation={"Delete"} 
+>
+    Are you sure you want to delete <strong>{CurrentProject.Name}</strong>
+</Dialog>
