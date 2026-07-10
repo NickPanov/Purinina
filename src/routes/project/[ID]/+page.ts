@@ -2,7 +2,6 @@ import { readDir, type DirEntry } from '@tauri-apps/plugin-fs';
 import { ProjectManager, Project } from '../../../modules/ProjectManager.svelte';
 
 //Single project manager module;
-//TODO export functions 
 class SourceFile {
     name: string;
     isDirectory: boolean;
