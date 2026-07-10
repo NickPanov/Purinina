@@ -83,7 +83,7 @@ export class ProjectManager {
         Promise.all([setter, saver]).then(() => { 
             this.reload('create');
             goto(`/project/${newProject.ID}`);
-            toast.success("SM")
+            toast.success(`Project <strong>${newProject.Name}</strong> created sucessfully.`)
         }).catch(err => {
             toast.error(err)
         });
