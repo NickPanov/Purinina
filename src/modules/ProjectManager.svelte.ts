@@ -11,7 +11,7 @@ export class Project {
     SourceDir: string;
     CSSOutputDir: string;
     JSOutputDir: string;
-    Files: Array<SourceFile>;
+    SourceFiles: Array<SourceFile>;
     constructor(dir: string= './') {
         //new project is initialized as same dir for input and output;
         this.ID = `${Date.now()}-${crypto.randomUUID()}`;  

@@ -38,5 +38,5 @@
             <button class="btn btn-secondary"> Reload </button>
         </li>
     </ul>
-    <Filetable filelist={data.Files}></Filetable>
+    <Filetable filelist={data.SourceFiles}></Filetable>
 </article>
