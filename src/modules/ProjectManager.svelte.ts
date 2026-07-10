@@ -2,8 +2,12 @@ import { load, Store } from "@tauri-apps/plugin-store"
 import { GlobalState } from "../modules/GlobalContext.svelte";
 import { goto } from "$app/navigation";
 // This is the module that manages the Projects and their filelists;
-interface SourceFile {
-
+export interface SourceFile {
+    name: string;
+    isDirectory: boolean;
+    isFile: boolean;
+    isSymlink: boolean;
+    extension?: string;
 }
 export class Project {
     ID: string;
@@ -11,7 +15,7 @@ export class Project {
     SourceDir: string;
     CSSOutputDir: string;
     JSOutputDir: string;
-    SourceFile: Array<SourceFile>;
+    SourceFiles: Array<SourceFile>;
     constructor(dir: string= './') {
         //new project is initialized as same dir for input and output;
         this.ID = `${Date.now()}-${crypto.randomUUID()}`;  
