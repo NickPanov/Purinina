@@ -24,19 +24,7 @@
     }
   }
 
-  async function newProject() {
-    // Open a dialog
-    const projectDir: any = await open({
-      multiple: false,
-      directory: true,
-    });
-    try {
-      let newProject = await ProjectManager.create(projectDir);
-      toast.success(`Project <strong> ${newProject.Name} </strong> created successfully.`);
-    } catch (error) {
-      toast.error(error);
-    } 
-  }
+   
 
   checkDir();
 </script>
@@ -49,7 +37,7 @@
       <button type="button" class="btn btn-neutral" onclick={checkDir}>
         Check
       </button>
-      <button type="button" class="btn btn-primary" onclick={newProject}>
+      <button type="button" class="btn btn-primary" onclick={()=>ProjectManager.create()}>
         Add Project
       </button>
     </div>

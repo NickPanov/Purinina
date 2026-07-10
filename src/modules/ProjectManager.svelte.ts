@@ -1,6 +1,9 @@
 import { load, Store } from "@tauri-apps/plugin-store"
 import { GlobalState } from "../modules/GlobalContext.svelte";
 import { goto } from "$app/navigation";
+import { open } from "@tauri-apps/plugin-dialog";
+import { toast } from "../modules/toaster.svelte"
+
 // This is the module that manages the Projects and their filelists;
 export interface SourceFile {
     name: string;
@@ -16,9 +19,9 @@ export class Project {
     CSSOutputDir: string;
     JSOutputDir: string;
     SourceFiles: Array<SourceFile>;
-    constructor(dir: string= './') {
+    constructor(dir: string = './') {
         //new project is initialized as same dir for input and output;
-        this.ID = `${Date.now()}-${crypto.randomUUID()}`;  
+        this.ID = `${Date.now()}-${crypto.randomUUID()}`;
         this.Name = dir.split("\\").pop() ?? "";
         this.SourceDir = dir;
         this.CSSOutputDir = dir;
@@ -44,21 +47,26 @@ export class ProjectManager {
         let projects = await this.load();
         return (await projects.keys()).length;
     }
-    static async get(id: string) : Promise<Project | undefined> {
+    static async get(id: string): Promise<Project | undefined> {
         let projects = await ProjectManager.load();
         return await projects.get(id);
     }
     static async list(): Promise<any> {
         let projects = await this.load();
-        let result = Array.from(await projects.keys()); 
+        let result = Array.from(await projects.keys());
 
         return result;
     }
 
-    static async create(dir: any) {
+    static async create() {
         //TODO: We should create projects by ID and check for duplicates by URI; 
         //then WARN the user, but not prevent them from creating a project with the same path;
         //We should also check for duplicates by name, and warn the user, but not prevent them from creating a project with the same name;
+
+        let dir: any = await open({
+            multiple: false,
+            directory: true,
+        });
         const projects = await this.load();
         let newProject = new Project(dir);
         let dupedSourceDir = await this.dupeCheck("SourceDir", newProject.SourceDir);
@@ -72,11 +80,15 @@ export class ProjectManager {
         let setter = projects.set(newProject.ID, newProject);
         let saver = projects.save();
 
-        Promise.all([setter, saver]).then(() => {
-            this.reload('create'); 
+        Promise.all([setter, saver]).then(() => { 
+            this.reload('create');
             goto(`/project/${newProject.ID}`);
+            toast.success("SM")
+        }).catch(err => {
+            toast.error(err)
         });
-        return newProject;
+
+
     }
     static async update(name: string, project: Project) {
 
