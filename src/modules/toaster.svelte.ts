@@ -11,8 +11,7 @@ class Toast {
 export let ToasterArray: Array<Toast> = $state([]); 
 
 function add(message: string, type: string = "info") {
-    const toast = new Toast(message, type);
-    console.log("adding toast", toast);
+    const toast = new Toast(message, type); 
     ToasterArray.push(toast);
     //TODO: Make them disapear;
 }

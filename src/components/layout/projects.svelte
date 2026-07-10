@@ -6,7 +6,7 @@
 <h1 class="font-xl m-4 font-bold">Projects</h1>
 <ul class="list bg-base-100 rounded-box shadow-md m-4">
 
-   {#each data as projectName}
-        <Item ID={projectName} />
+   {#each data as ID}
+        <Item ID={ID} />
     {/each}
 </ul>

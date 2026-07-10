@@ -50,8 +50,7 @@ export class ProjectManager {
     }
     static async list(): Promise<any> {
         let projects = await this.load();
-        let result = Array.from(await projects.keys());
-        console.log("returning project list", result);
+        let result = Array.from(await projects.keys()); 
 
         return result;
     }

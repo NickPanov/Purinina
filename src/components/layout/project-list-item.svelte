@@ -5,7 +5,7 @@
     } from "../../modules/ProjectManager.svelte";
     import { toast } from "../../modules/toaster.svelte";
 
-    const { ID } = $props();
+    const { ID } = $props(); 
 
     let CurrentProject : any = $state({Name:'default',SourceDir:'default'});
     ProjectManager.get(ID)
@@ -51,7 +51,7 @@
 
     <div class="tooltip" data-tip="Select"> 
         <a href="/project/{ID}" class="btn btn-square btn-ghost">
-            <i class="icon-[solar--round-arrow-right-line-duotone]"></i>
+            <i class="icon-[solar--round-arrow-right-line-duotone]"></i> 
             <!-- FIXME: links don't work from Project page! -->
             <!-- <Icon name="right"></Icon> -->
         </a>
