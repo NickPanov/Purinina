@@ -7,7 +7,7 @@
     } = $props();
 </script>
 
-<dialog id="confirm_delete_01" class="modal" bind:this={reference}>
+<dialog class="modal" bind:this={reference}>
     <div class="modal-box">
         <h3 class="text-lg font-bold">Delete project?</h3>
         <p class="py-4">

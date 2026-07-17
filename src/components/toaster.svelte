@@ -1,13 +1,18 @@
 <script lang="ts">
     import Alert from "./alert.svelte";
-    import { ToasterArray } from "../modules/toaster.svelte";
+    import { ToasterArray, remove } from "../modules/toaster.svelte";
 </script>
 
 <div class="toaster">
-    {#each ToasterArray as toast (toast.id)} 
-        <Alert message={toast.message} type={toast.type} id={toast.id} />
+    {#each ToasterArray as toast (toast.id)}
+        <Alert
+            message={toast.message}
+            type={toast.type}
+            id={toast.id}
+            callback={remove}
+        />
     {/each}
-</div>
+</div> 
 
 <style>
     .toaster {
@@ -15,5 +20,5 @@
         bottom: 1rem;
         right: 1rem;
         z-index: 9999;
-    } 
+    }
 </style>
