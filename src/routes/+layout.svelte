@@ -2,8 +2,8 @@
     import Navbar from "../components/layout/navbar.svelte";
     import Projects from "../components/layout/projects.svelte"; 
     import { GlobalState } from "../modules/GlobalContext.svelte";
-    import Toaster from "../components/toaster.svelte";
-    let { data, children } = $props();
+    import Toaster from "../components/toast-layer.svelte";
+    let { children } = $props();
     
 </script>
 
