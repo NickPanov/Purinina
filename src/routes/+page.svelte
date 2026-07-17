@@ -10,7 +10,7 @@
   } from "@tauri-apps/plugin-fs";
   import { open } from "@tauri-apps/plugin-dialog";
   import { ProjectManager } from "../modules/ProjectManager.svelte";
-  import { toast } from "../modules/toaster.svelte";
+  import { toast } from "../modules/Toaster.svelte";
 
   async function checkDir() {
     const tokenExists = await exists("projects", {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Alert from "./alert.svelte";
-    import { ToasterArray, remove } from "../modules/toaster.svelte";
+    import { ToasterArray, remove } from "../modules/Toaster.svelte";
 </script>
 
 <div class="toaster">

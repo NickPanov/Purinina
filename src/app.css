@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @plugin "daisyui" {
-  themes: dim --default;
+  themes: pastel --default;
 }
 
 @plugin "@iconify/tailwind4" {

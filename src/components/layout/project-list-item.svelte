@@ -3,7 +3,7 @@
         Project,
         ProjectManager,
     } from "../../modules/ProjectManager.svelte";
-    import { toast } from "../../modules/toaster.svelte";
+    import { toast } from "../../modules/Toaster.svelte";
     import Dialog from "../dialog.svelte";
 
     const { ID } = $props();
