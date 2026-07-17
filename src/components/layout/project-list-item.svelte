@@ -3,8 +3,7 @@
         Project,
         ProjectManager,
     } from "../../modules/ProjectManager.svelte";
-    import { toast } from "../../modules/Toaster.svelte";
-    import Dialog from "../dialog.svelte";
+    import { toast, dialog } from "../../modules/Toaster.svelte";
 
     const { ID } = $props();
 
@@ -16,20 +15,22 @@
         });
 
     //Methods
-    let dialogElement: any;
-    function deleteProject() {
-        dialogElement.showModal();
-    }
-    async function deleteConfirmed() {
-        ProjectManager.remove(ID)
-            .then(() => {
-                // Project deleted successfully
-                toast.success(`Project ${ID} deleted successfully.`);
-            })
-            .catch((error) => {
-                // Handle error
-                toast.error(error);
-            });
+    async function deleteProject() {
+        let ok = await dialog.confirm({
+            title: `Delete project?`,
+            message: `Are you sure you want to delete <strong>${CurrentProject.Name}?</strong>`,
+        });
+        if (ok) {
+            ProjectManager.remove(ID)
+                .then(() => {
+                    // Project deleted successfully
+                    toast.success(`Project <strong>${CurrentProject.Name} </strong> deleted successfully.`);
+                })
+                .catch((error) => {
+                    // Handle error
+                    toast.error(error);
+                });
+        }
     }
 </script>
 
@@ -55,10 +56,3 @@
         </a>
     </div>
 </li>
-<Dialog
-    bind:reference={dialogElement}
-    bind:action={deleteConfirmed}
-    confirmation={"Delete"} 
->
-    Are you sure you want to delete <strong>{CurrentProject.Name}</strong>
-</Dialog>
