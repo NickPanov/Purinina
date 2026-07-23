@@ -31,7 +31,7 @@
 </script>
 
 <div class="overflow-x-auto">
-    <!-- TODO:0710  Probably the whole page should be a list not a table -->
+    <!-- DESIGN:0710  Probably the whole page should be a list not a table -->
     <table class="table bg-base-200 rounded-box shadow-md mt-4">
         <thead>
             <tr>
