@@ -6,7 +6,7 @@
         DialogArray,
         remove,
         removeDialog,
-    } from "../modules/Toaster.svelte";
+    } from "$modules/Toaster.svelte";
 </script>
 
 <div class="toaster">

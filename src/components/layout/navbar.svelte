@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ProjectManager } from "../../modules/ProjectManager.svelte";
+    import { ProjectManager } from "$modules/ProjectManager.svelte";
 </script>
 
 <div class="navbar bg-base-300">

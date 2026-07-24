@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { type SourceFile } from "../modules/ProjectManager.svelte";
+    import { type SourceFile } from "$modules/ProjectManager.svelte";
 
     let { filelist } = $props();
 

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Command } from "@tauri-apps/plugin-shell";
-    import Filetable from "../../../components/filetable.svelte";
+    import Filetable from "$components/filetable.svelte";
     interface ProjectSourceFile {
         name: string;
     }

@@ -1,10 +1,9 @@
 <script lang="ts">
-    import Navbar from "../components/layout/navbar.svelte";
-    import Projects from "../components/layout/projects.svelte"; 
-    import { GlobalState } from "../modules/GlobalContext.svelte";
-    import Toaster from "../components/message-layer.svelte";
-    let { children } = $props();
-    
+    import Navbar from "$components/layout/navbar.svelte";
+    import Projects from "$components/layout/projects.svelte"; 
+    import { GlobalState } from "$modules/GlobalContext.svelte";
+    import Toaster from "$components/message-layer.svelte"; 
+    let { children } = $props(); 
 </script>
 
 <div class="flex">

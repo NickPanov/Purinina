@@ -1,8 +1,9 @@
 import { load, Store } from "@tauri-apps/plugin-store"
-import { GlobalState } from "../modules/GlobalContext.svelte";
+import { GlobalState } from "$modules/GlobalContext.svelte";
+import { dialog, toast } from "$modules/Toaster.svelte";
+
 import { goto } from "$app/navigation";
 import { open } from "@tauri-apps/plugin-dialog";
-import { dialog, toast } from "./Toaster.svelte";
 
 // This is the module that manages the Projects and their filelists;
 export interface SourceFile {

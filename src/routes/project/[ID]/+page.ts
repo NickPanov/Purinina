@@ -1,5 +1,5 @@
 import { readDir, type DirEntry } from '@tauri-apps/plugin-fs';
-import { ProjectManager, Project } from '../../../modules/ProjectManager.svelte';
+import { ProjectManager, Project } from '$modules/ProjectManager.svelte';
 
 //Single project manager module;
 class SourceFile {
