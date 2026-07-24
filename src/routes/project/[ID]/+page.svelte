@@ -28,7 +28,6 @@
         <span class="label">Source folder</span>
         <input
             class="input join-item w-full"
-            placeholder="Search"
             readonly
             value={data.SourceDir}
         />

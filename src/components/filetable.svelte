@@ -69,6 +69,7 @@
         </tbody>
     </table>
     <form class="mt-4">
+        <!-- BUG: The pills remain active when another project is selected -->
         {#each Object.entries(groupedByType.groupedByExtension ?? {}) as [extension]}
             <input
                 class="btn mr-2"

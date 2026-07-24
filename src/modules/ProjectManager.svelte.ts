@@ -2,7 +2,7 @@ import { load, Store } from "@tauri-apps/plugin-store"
 import { GlobalState } from "../modules/GlobalContext.svelte";
 import { goto } from "$app/navigation";
 import { open } from "@tauri-apps/plugin-dialog";
-import { toast } from "./Toaster.svelte";
+import { dialog, toast } from "./Toaster.svelte";
 
 // This is the module that manages the Projects and their filelists;
 export interface SourceFile {
@@ -71,6 +71,10 @@ export class ProjectManager {
         let newProject = new Project(dir);
         let dupedSourceDir = await this.dupeCheck("SourceDir", newProject.SourceDir);
         if (dupedSourceDir) {
+            let ok = await dialog.confirm({
+                title: `Duplicated source`,
+                message: `The selected folder <strong>${newProject.SourceDir}</strong> is already used in another project. Are you sure you want to proceed?`,
+            });
             //TODO throw warning confirm
         }
         let dupedName = await this.dupeCheck("SourceDir", newProject.SourceDir);
@@ -80,7 +84,7 @@ export class ProjectManager {
         let setter = projects.set(newProject.ID, newProject);
         let saver = projects.save();
 
-        Promise.all([setter, saver]).then(() => { 
+        Promise.all([setter, saver]).then(() => {
             this.reload('create');
             goto(`/project/${newProject.ID}`);
             toast.success(`Project <strong>${newProject.Name}</strong> created sucessfully.`)
