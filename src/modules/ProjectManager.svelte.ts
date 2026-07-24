@@ -4,6 +4,7 @@ import { dialog, toast } from "$modules/Toaster.svelte";
 
 import { goto } from "$app/navigation";
 import { open } from "@tauri-apps/plugin-dialog";
+import Projects from "$components/layout/projects.svelte";
 
 // This is the module that manages the Projects and their filelists;
 export interface SourceFile {
@@ -13,6 +14,14 @@ export interface SourceFile {
     isSymlink: boolean;
     extension?: string;
 }
+
+export class ProjectSettings {
+    filter: Array<string>;
+    constructor() {
+        this.filter = [];
+    }
+}
+
 export class Project {
     ID: string;
     Name: string;
@@ -20,6 +29,7 @@ export class Project {
     CSSOutputDir: string;
     JSOutputDir: string;
     SourceFiles: Array<SourceFile>;
+    ProjectSettings : ProjectSettings;
     constructor(dir: string = './') {
         //new project is initialized as same dir for input and output;
         this.ID = `${Date.now()}-${crypto.randomUUID()}`;
@@ -27,6 +37,7 @@ export class Project {
         this.SourceDir = dir;
         this.CSSOutputDir = dir;
         this.JSOutputDir = dir;
+        this.ProjectSettings = new ProjectSettings();
     }
 };
 
@@ -95,8 +106,10 @@ export class ProjectManager {
 
 
     }
-    static async update(name: string, project: Project) {
-
+    static async update(project:Project) {
+        const projects = await this.load(); 
+        projects.set(project.ID, project); 
+       
     }
     static async remove(ID: string) {
         let projects = await this.load();

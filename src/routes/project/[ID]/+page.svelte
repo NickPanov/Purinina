@@ -1,17 +1,28 @@
 <script lang="ts">
     import { Command } from "@tauri-apps/plugin-shell";
     import Filetable from "$components/filetable.svelte";
-    import type { SourceFile } from "$modules/ProjectManager.svelte.js";
+    import { ProjectManager } from "$modules/ProjectManager.svelte.js";
+    import type {
+        Project,
+        SourceFile,
+        ProjectSettings,
+    } from "$modules/ProjectManager.svelte.js";
 
-    let { data } = $props();
-    let selectedExtensions: Array<string> = $state([]);
+    let { data } = $props() as { data: Project };
+    $inspect(data);
 
-    let filelist = data.SourceFiles;
+    let selectedExtensions: Array<string> = $derived(data.ProjectSettings?.filter ?? []);
+    $effect(() => { 
+        data.ProjectSettings.filter = selectedExtensions;
+        ProjectManager.update(data);
+    });
+
+    
     const groupedByType = $derived.by(function () {
-        const folders = (filelist ?? []).filter(
+        const folders = (data.SourceFiles ?? []).filter(
             (item: SourceFile) => item.isDirectory,
         );
-        const files = (filelist ?? []).filter(
+        const files = (data.SourceFiles ?? []).filter(
             (item: SourceFile) => !item.isDirectory,
         );
         return {
@@ -25,20 +36,18 @@
     });
 
     let filtered = $derived.by(() => {
-        console.log(selectedExtensions.length > 0);
-
-        if (selectedExtensions.length > 0) {
-            let result = filelist.filter((file) => { 
-                return Array.from(selectedExtensions).includes(file.extension);
+        if (selectedExtensions.length > 0 && data.SourceFiles) {
+            let result = data.SourceFiles.filter((file) => {
+                return (
+                    file.extension !== undefined &&
+                    selectedExtensions.includes(file.extension)
+                );
             });
             return result;
+        } else {
+            return data.SourceFiles;
         }
-        else {
-            return filelist;
-        }
-     
-    });
-    $inspect(filtered);
+    }); 
     //TODO create a new SASS compiler that will compile SASS files to CSS
 
     // async function compileSrc(file: ProjectSourceFile) {

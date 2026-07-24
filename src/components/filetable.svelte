@@ -1,8 +1,6 @@
 <script lang="ts">
     let { filelist } = $props();
-    $inspect(filelist);
-</script>
-
+</script> 
 <div class="overflow-x-auto">
     <!-- DESIGN:0710  Probably the whole page should be a list not a table -->
 
@@ -29,11 +27,9 @@
                     </th>
                     <td>
                         <div class="flex items-center gap-3">
-                            <div>
-                                <div class="font-bold">
+                                <span class="font-bold">
                                     {file.name}
-                                </div>
-                            </div>
+                                </span> 
                         </div>
                     </td>
                     <td>Output destination</td>
